@@ -3,6 +3,8 @@ import numpy as np
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
+from numpy import genfromtxt
+from prettytable import PrettyTable
 from keras.layers import Flatten
 from keras.layers import LSTM
 import nltk
@@ -214,6 +216,23 @@ def main():
         #NLTK gives sentiment score between -1 to 1
         #Hence normalizing sentiment score to a value between 0 to 1 for better comaprison
         print((ss['compound']+1)/2.0)
+
+        #load live_test_data
+        my_data = genfromtxt('/home/sarthak/Desktop/data-mining/Data/LiveTest/live_test_data.txt', delimiter = ',',dtype=str)
+        #load live_test_data_context
+        my_context = genfromtxt('/home/sarthak/Desktop/data-mining/Data/LiveTest/live_test_data_context.txt', delimiter = ',',dtype=str)
+        #using prettytable to print result in tabular form
+        t=PrettyTable(['Sentence','Context','NLTK_Prediction','LSTM_Prediction'])
+        x=0
+        for data in my_data:
+            #print(data)
+            result_lstm = live_test(loaded_model,data, word_idx)
+            sid = SentimentIntensityAnalyzer()
+            ss = sid.polarity_scores(data)
+            result_nltk=(ss['compound']+1)/2.0
+            t.add_row([data,my_context[x],str(result_nltk),str(result_lstm)])
+            x+=1
+        print(t)
 #Running the main function
 #Running with train_flag true means that we are in training mode
 #Running with train_flag false means that we are in live testing mode
