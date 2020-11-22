@@ -97,20 +97,34 @@ def create_model_rnn(weight_matrix, max_words, EMBEDDING_DIM):
 def train_model(model,train_x, train_y, test_x, test_y, val_x, val_y, batch_size, path) :
 
     # Saving The best model to best_model.hdf5 file
-    saveBestModel = keras.callbacks.ModelCheckpoint(path+'/model/best_model.hdf5', monitor='val_acc', verbose=0,save_best_only=True, save_weights_only=False, mode='auto', period=1)
+    saveBestModel = keras.callbacks.ModelCheckpoint(path+'/model/best_model.hdf5', monitor='val_acc', verbose=0,
+                                                    save_best_only=True, save_weights_only=False, mode='auto', period=1)
     # Using EarlyStopping with patience value 3 and set to run for 25 epochs
     earlyStopping = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=3, verbose=0, mode='auto')
 
     # Fit the model
-    model.fit(train_x, train_y, batch_size=batch_size, epochs=25,validation_data=(val_x, val_y), callbacks=[saveBestModel, earlyStopping])
+    model.fit(train_x, train_y, batch_size=batch_size, epochs=25,
+              validation_data=(val_x, val_y), callbacks=[saveBestModel, earlyStopping])
     # Final evaluation of the model
     score, acc = model.evaluate(test_x, test_y, batch_size=batch_size)
-
     print('The Test score is:', score)
-    print()
     print('The Test accuracy is:', acc)
-    print()
-
+    # summarize history for accuracy
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.title('model accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train','test'], loc='upper left')
+    plt.show()
+    # summarize history for loss
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.title('model loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train','test'], loc='upper left')
+    plt.show()
     return model
 
 def live_test(trained_model, data, word_idx):
