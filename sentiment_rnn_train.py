@@ -77,7 +77,8 @@ def create_model_rnn(weight_matrix, max_words, EMBEDDING_DIM):
     # creating the neural network model
     model = Sequential()
     #Adding Embedding Layer
-    model.add(Embedding(len(weight_matrix), EMBEDDING_DIM, weights=[weight_matrix], input_length=max_words, trainable=False))
+    model.add(Embedding(len(weight_matrix), EMBEDDING_DIM,
+                        weights=[weight_matrix], input_length=max_words, trainable=False))
     #Adding Bi-Directional LSTM Layer
     model.add(Bidirectional(LSTM(128, dropout=0.2, recurrent_dropout=0.2)))
     #Adding Dense layer for ReLu
