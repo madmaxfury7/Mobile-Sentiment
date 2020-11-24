@@ -193,8 +193,6 @@ def tf_data_pipeline(data, word_idx, weight_matrix, max_seq_len):
     idx = 0
 
     for index, row in data.iterrows():
-
-
         sentence = (row['Phrase'])
         sentence_words = sentence.split(' ')
 
@@ -232,8 +230,6 @@ def tf_data_pipeline_nltk(data, word_idx, weight_matrix, max_seq_len):
     idx = 0
 
     for index, row in data.iterrows():
-
-
         sentence = (row['Phrase'])
         #print (sentence)
         tokenizer = RegexpTokenizer(r'\w+')
