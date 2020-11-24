@@ -195,12 +195,14 @@ def main():
         first_run = False
         load_all = True
 
-        train_x, train_y, test_x, test_y, val_x, val_y, weight_matrix, word_idx = load_data_all(data_dir, all_data_path, gloveFile, first_run, load_all)
+        train_x, train_y, test_x, test_y, val_x, val_y, weight_matrix, word_idx =
+            load_data_all(data_dir, all_data_path, gloveFile, first_run, load_all)
         # creating model strucutre
         model = create_model_rnn(weight_matrix, max_words, EMBEDDING_DIM)
 
         # train the model
-        trained_model =train_model(model,train_x, train_y, test_x, test_y, val_x, val_y, batch_size, path)   # run model live
+        trained_model =train_model(model,train_x, train_y,
+                                   test_x, test_y, val_x, val_y, batch_size, path)
 
 
         # serializing the weights to HDF5 
@@ -232,9 +234,13 @@ def main():
         print((ss['compound']+1)/2.0)
 
         #load live_test_data
-        my_data = genfromtxt('/home/sarthak/Desktop/data-mining/Data/LiveTest/live_test_data.txt', delimiter = ',',dtype=str)
+        my_data = genfromtxt
+        ('/home/sarthak/Desktop/data-mining/Data/LiveTest/live_test_data.txt',
+                             delimiter = ',',dtype=str)
         #load live_test_data_context
-        my_context = genfromtxt('/home/sarthak/Desktop/data-mining/Data/LiveTest/live_test_data_context.txt', delimiter = ',',dtype=str)
+        my_context = genfromtxt
+        ('/home/sarthak/Desktop/data-mining/Data/LiveTest/live_test_data_context.txt',
+                                delimiter = ',',dtype=str)
         #using prettytable to print result in tabular form
         t=PrettyTable(['Sentence','Context','NLTK_Prediction','LSTM_Prediction'])
         x=0
