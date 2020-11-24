@@ -182,9 +182,7 @@ def maxSeqLen(training_data):
     return max_seq_len, avg_words, sequence_length_np
 
 def tf_data_pipeline(data, word_idx, weight_matrix, max_seq_len):
-
     #training_data = training_data[0:50]
-
     maxSeqLength = max_seq_len #Maximum length of sentence
     no_rows = len(data)
     ids = np.zeros((no_rows, maxSeqLength), dtype='int32')
@@ -195,7 +193,6 @@ def tf_data_pipeline(data, word_idx, weight_matrix, max_seq_len):
     for index, row in data.iterrows():
         sentence = (row['Phrase'])
         sentence_words = sentence.split(' ')
-
         i = 0
         for word in sentence_words:
             #print(index)
@@ -203,7 +200,6 @@ def tf_data_pipeline(data, word_idx, weight_matrix, max_seq_len):
             try:
                 #print (word_lwr)
                 ids[idx][i] =  word_idx_lwr[word_lwr]
-
             except Exception as e:
                 #print (e)
                 #print (word)
@@ -219,16 +215,13 @@ def tf_data_pipeline(data, word_idx, weight_matrix, max_seq_len):
 
 
 def tf_data_pipeline_nltk(data, word_idx, weight_matrix, max_seq_len):
-
     #training_data = training_data[0:50]
-
     maxSeqLength = max_seq_len #Maximum length of sentence
     no_rows = len(data)
     ids = np.zeros((no_rows, maxSeqLength), dtype='int32')
     # conver keys in dict to lower case
     word_idx_lwr =  {k.lower(): v for k, v in word_idx.items()}
     idx = 0
-
     for index, row in data.iterrows():
         sentence = (row['Phrase'])
         #print (sentence)
@@ -251,7 +244,6 @@ def tf_data_pipeline_nltk(data, word_idx, weight_matrix, max_seq_len):
                 continue
             i = i + 1
         idx = idx + 1
-
     return ids
 
 
